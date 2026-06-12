@@ -1,0 +1,21 @@
+YouTube Focus
+==============
+
+עברית
+-----
+© מעבדות שלמות. כל הזכויות שמורות.
+תוסף זה, על כל קבציו, קוד המקור, העיצוב והאייקונים שלו, הוא קניין רוחני
+של מעבדות שלמות. אין להעתיק, להפיץ, לשנות, למכור או לפרסם את התוסף או חלקים
+ממנו ללא אישור מפורש בכתב מבעל הזכויות.
+מותר להתקין ולהשתמש בתוסף לשימוש אישי בלבד.
+לשאלות, בקשות ורישוי: shlmut@otzmashelkesher.co.il
+
+English
+-------
+© Shlemut Labs. All rights reserved.
+This extension — including all of its files, source code, design and icons —
+is the intellectual property of Shlemut Labs. No part of it may be copied,
+distributed, modified, sold or published without the explicit written
+permission of the copyright holder.
+You may install and use the extension for personal use only.
+For questions, requests and licensing: shlmut@otzmashelkesher.co.il

@@ -1,0 +1,120 @@
+/*
+ * YouTube Focus — focus.css
+ * כל ההסתרות מבוססות על מחלקות שמופעלות על <html> מתוך content.js.
+ * אין מחיקה של DOM — רק display:none / visibility, יציב ולא נשבר ב-re-render.
+ * הסלקטורים מזהים אלמנטים לפי ה-element/id ולא לפי מיקום, כך שעובד גם RTL וגם LTR.
+ */
+
+/* ===== אנימציית מעבר עדינה (מופעלת רק כשמחלקת yt-focus-anim קיימת) ===== */
+html.yt-focus-anim #secondary,
+html.yt-focus-anim ytd-watch-next-secondary-results-renderer,
+html.yt-focus-anim #related,
+html.yt-focus-anim ytd-rich-grid-renderer {
+  transition: opacity 0.25s ease, max-width 0.25s ease;
+}
+
+/* ===== 1. הסתרת עמודת ההצעות בנגן (#secondary) ===== */
+/* מזוהה לפי האלמנט/ID — לא לפי צד, כך שעובד גם בעברית (RTL) וגם באנגלית. */
+html.yt-focus-hide-secondary ytd-watch-flexy #secondary,
+html.yt-focus-hide-secondary ytd-watch-flexy #secondary-inner,
+html.yt-focus-hide-secondary ytd-watch-next-secondary-results-renderer,
+html.yt-focus-hide-secondary #related {
+  display: none !important;
+}
+
+/* ===== 2. הרחבת/מירכוז הנגן כשההצעות מוסתרות ===== */
+html.yt-focus-expand-player ytd-watch-flexy[flexy] #primary,
+html.yt-focus-expand-player ytd-watch-flexy #primary.ytd-watch-flexy {
+  max-width: 1280px !important;
+  margin-inline: auto !important;
+}
+html.yt-focus-expand-player ytd-watch-flexy #primary-inner {
+  margin-inline: auto !important;
+}
+/* מרחיב את אזור הסרטון עצמו (לא במצב מסך מלא) */
+html.yt-focus-expand-player ytd-watch-flexy:not([theater]):not([fullscreen]) #player-container.ytd-watch-flexy {
+  margin-inline: auto !important;
+}
+
+/* ===== 3. הסתרת מסך הסיום (End Screen) — הקוביות בסוף הסרטון ===== */
+html.yt-focus-hide-endscreen .html5-endscreen.videowall-endscreen,
+html.yt-focus-hide-endscreen .ytp-endscreen-content,
+html.yt-focus-hide-endscreen .ytp-ce-element,            /* כרטיסיות/אנוטציות בפינה */
+html.yt-focus-hide-endscreen .ytp-pause-overlay {        /* הצעות שמופיעות בעצירה */
+  display: none !important;
+}
+
+/* ===== 4. הסתרת פיד עמוד הבית ===== */
+html.yt-focus-hide-home ytd-browse[page-subtype="home"] ytd-rich-grid-renderer,
+html.yt-focus-hide-home ytd-browse[page-subtype="home"] #contents.ytd-rich-grid-renderer {
+  display: none !important;
+}
+/* הודעה ידידותית במקום הפיד הריק (דו-לשונית) */
+html.yt-focus-hide-home ytd-browse[page-subtype="home"] #primary::before {
+  display: block;
+  text-align: center;
+  padding: 80px 24px;
+  font-size: 16px;
+  color: var(--yt-spec-text-secondary, #909090);
+  line-height: 1.8;
+}
+html.yt-focus-lang-he.yt-focus-hide-home ytd-browse[page-subtype="home"] #primary::before {
+  content: "מצב פוקוס פעיל — פיד עמוד הבית מוסתר. חפש סרטון או היכנס למנויים.";
+}
+html.yt-focus-lang-en.yt-focus-hide-home ytd-browse[page-subtype="home"] #primary::before {
+  content: "Focus mode on — home feed hidden. Search for a video or open Subscriptions.";
+}
+
+/* ===== 5. הסתרת Shorts (סיידבר + פידים + מדף ייעודי) ===== */
+/* קישור Shorts בסיידבר */
+html.yt-focus-hide-shorts ytd-guide-entry-renderer a[title="Shorts"],
+html.yt-focus-hide-shorts ytd-mini-guide-entry-renderer[aria-label="Shorts"],
+html.yt-focus-hide-shorts a[title="Shorts"] {
+  display: none !important;
+}
+/* מדפי Shorts בתוך פידים */
+html.yt-focus-hide-shorts ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts]),
+html.yt-focus-hide-shorts ytd-reel-shelf-renderer,
+html.yt-focus-hide-shorts grid-shelf-view-model,
+html.yt-focus-hide-shorts ytd-rich-shelf-renderer[is-shorts] {
+  display: none !important;
+}
+/* פריט Shorts בודד בתוצאות חיפוש */
+html.yt-focus-hide-shorts ytd-video-renderer:has(a[href^="/shorts"]) {
+  display: none !important;
+}
+
+/* ===== 6. הסתרת ההמלצות בעמוד ערוץ (כשצופים בסרטון מתוך ערוץ) ===== */
+/* נשען על אותו #secondary שכבר מטופל, אבל גם על גריד ההמלצות במידת הצורך */
+html.yt-focus-hide-channel-suggestions ytd-watch-flexy #secondary {
+  display: none !important;
+}
+
+/* ===== 7. הסתרת תגובות ===== */
+html.yt-focus-hide-comments ytd-comments#comments,
+html.yt-focus-hide-comments #comments.ytd-watch-flexy {
+  display: none !important;
+}
+
+/* ===== 8. הסתרת מודעות בחיפוש ובסיידבר ===== */
+html.yt-focus-hide-search-ads ytd-ad-slot-renderer,
+html.yt-focus-hide-search-ads ytd-promoted-sparkles-web-renderer,
+html.yt-focus-hide-search-ads ytd-promoted-video-renderer,
+html.yt-focus-hide-search-ads ytd-display-ad-renderer,
+html.yt-focus-hide-search-ads ytd-in-feed-ad-layout-renderer,
+html.yt-focus-hide-search-ads ytd-banner-promo-renderer,
+html.yt-focus-hide-search-ads #masthead-ad,
+html.yt-focus-hide-search-ads ytd-statement-banner-renderer,
+html.yt-focus-hide-search-ads tp-yt-paper-dialog:has(ytd-enforcement-message-view-model) {
+  display: none !important;
+}
+
+/* ===== 9. הסתרת שכבות/באנרים של פרסומות וידאו (משלים לחסימת הרשת) ===== */
+html.yt-focus-block-ads .video-ads.ytp-ad-module,
+html.yt-focus-block-ads .ytp-ad-overlay-container,
+html.yt-focus-block-ads .ytp-ad-image-overlay,
+html.yt-focus-block-ads .ytp-ad-text-overlay,
+html.yt-focus-block-ads ytd-player-legacy-desktop-watch-ads-renderer,
+html.yt-focus-block-ads #player-ads {
+  display: none !important;
+}

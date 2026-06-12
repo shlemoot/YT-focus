@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YouTube Focus</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <img src="../icons/icon48.png" alt="" class="logo" />
+      <div class="brand-text">
+        <h1>YouTube&nbsp;Focus</h1>
+        <span class="subtitle" data-i18n="subtitle">חוויית צפייה ממוקדת</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <button id="langToggle" class="lang-toggle" title="Language / שפה">EN</button>
+      <div class="counter">
+        <span id="adCount">0</span>
+        <small data-i18n="adsBlocked">פרסומות נחסמו</small>
+      </div>
+    </div>
+  </header>
+
+  <section class="master">
+    <label class="master-row">
+      <div class="master-label">
+        <strong id="masterLabel" data-i18n="focusOn">מצב פוקוס פעיל</strong>
+        <span class="hint" data-i18n="hintToggle">Alt+F להפעלה/כיבוי מהיר</span>
+      </div>
+      <span class="switch big">
+        <input type="checkbox" id="enabled" />
+        <span class="slider"></span>
+      </span>
+    </label>
+  </section>
+
+  <section class="profiles">
+    <button class="profile-btn" data-profile="study"><span data-i18n="profileStudy">📚 מצב לימוד</span></button>
+    <button class="profile-btn" data-profile="normal"><span data-i18n="profileNormal">🎬 מצב רגיל</span></button>
+  </section>
+
+  <section class="features" id="features">
+    <div class="group-title" data-i18n="groupAds">פרסומות</div>
+
+    <label class="row">
+      <span class="row-label"><span class="ico">🚫</span> <span data-i18n="featBlockAds">חסימת פרסומות וידאו ודילוג אוטומטי</span></span>
+      <span class="switch"><input type="checkbox" id="blockAds" /><span class="slider"></span></span>
+    </label>
+    <label class="row">
+      <span class="row-label"><span class="ico">🔍</span> <span data-i18n="featSearchAds">הסתרת מודעות בחיפוש ובסיידבר</span></span>
+      <span class="switch"><input type="checkbox" id="hideSearchAds" /><span class="slider"></span></span>
+    </label>
+
+    <div class="group-title" data-i18n="groupFocus">מיקוד</div>
+
+    <label class="row">
+      <span class="row-label"><span class="ico">📑</span> <span data-i18n="featSecondary">הסתרת עמודת ההצעות בנגן</span></span>
+      <span class="switch"><input type="checkbox" id="hideSecondary" /><span class="slider"></span></span>
+    </label>
+    <label class="row">
+      <span class="row-label"><span class="ico">↔️</span> <span data-i18n="featExpand">מירכוז והרחבת הנגן</span></span>
+      <span class="switch"><input type="checkbox" id="expandPlayer" /><span class="slider"></span></span>
+    </label>
+    <label class="row">
+      <span class="row-label"><span class="ico">🏠</span> <span data-i18n="featHome">הסתרת פיד עמוד הבית</span></span>
+      <span class="switch"><input type="checkbox" id="hideHomeFeed" /><span class="slider"></span></span>
+    </label>
+    <label class="row">
+      <span class="row-label"><span class="ico">📺</span> <span data-i18n="featChannel">הסתרת המלצות בעמוד ערוץ</span></span>
+      <span class="switch"><input type="checkbox" id="hideChannelSuggestions" /><span class="slider"></span></span>
+    </label>
+    <label class="row">
+      <span class="row-label"><span class="ico">⚡</span> <span data-i18n="featShorts">הסתרת Shorts</span></span>
+      <span class="switch"><input type="checkbox" id="hideShorts" /><span class="slider"></span></span>
+    </label>
+    <label class="row">
+      <span class="row-label"><span class="ico">🔲</span> <span data-i18n="featEndScreen">הסתרת מסך הסיום</span></span>
+      <span class="switch"><input type="checkbox" id="hideEndScreen" /><span class="slider"></span></span>
+    </label>
+    <label class="row">
+      <span class="row-label"><span class="ico">💬</span> <span data-i18n="featComments">הסתרת תגובות</span></span>
+      <span class="switch"><input type="checkbox" id="hideComments" /><span class="slider"></span></span>
+    </label>
+
+    <div class="group-title" data-i18n="groupPlayer">נגן</div>
+
+    <label class="row">
+      <span class="row-label"><span class="ico">🎞️</span> <span data-i18n="featTheater">מצב קולנוע אוטומטי</span></span>
+      <span class="switch"><input type="checkbox" id="autoTheater" /><span class="slider"></span></span>
+    </label>
+    <label class="row">
+      <span class="row-label"><span class="ico">⏭️</span> <span data-i18n="featAutoplay">ביטול השמעה אוטומטית של הסרטון הבא</span></span>
+      <span class="switch"><input type="checkbox" id="disableAutoplay" /><span class="slider"></span></span>
+    </label>
+    <label class="row">
+      <span class="row-label"><span class="ico">✨</span> <span data-i18n="featAnim">אנימציית מעבר עדינה</span></span>
+      <span class="switch"><input type="checkbox" id="smoothAnim" /><span class="slider"></span></span>
+    </label>
+  </section>
+
+  <section class="whitelist">
+    <button id="allowChannelBtn" class="wl-btn" data-i18n="wlAllow">★ אפשר פרסומות בערוץ הזה</button>
+    <div id="wlStatus" class="wl-status"></div>
+  </section>
+
+  <section class="contact">
+    <a id="contactLink" class="contact-link" href="mailto:shlmut@otzmashelkesher.co.il?subject=YouTube%20Focus">
+      <span data-i18n="contact">✉️ שאלות ובקשות — צור קשר</span>
+    </a>
+    <button id="updateBtn" class="contact-link update-btn" data-i18n="checkUpdate">⬇️ בדוק עדכונים</button>
+    <div id="updateStatus" class="wl-status"></div>
+  </section>
+
+  <footer class="footer">
+    <div class="copyright">
+      <span data-i18n="copyright">© מעבדות שלמות. כל הזכויות שמורות.</span>
+    </div>
+    <div class="footer-row">
+      <button id="resetCount" class="link-btn" data-i18n="resetCount">איפוס מונה</button>
+      <span class="ver">v1.3.0</span>
+    </div>
+  </footer>
+
+  <script src="i18n.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

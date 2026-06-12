@@ -1,0 +1,205 @@
+/* YouTube Focus — popup.css  (RTL/LTR, dark by default, prefers-color-scheme aware) */
+/* © Shlemut Labs / מעבדות שלמות. All rights reserved. */
+
+:root {
+  --bg: #0f0f0f;
+  --surface: #1c1c1e;
+  --surface-2: #262629;
+  --border: #2f2f33;
+  --text: #f1f1f1;
+  --text-2: #9aa0a6;
+  --accent: #ff3b30;
+  --accent-soft: rgba(255, 59, 48, 0.15);
+  --on: #34c759;
+  --radius: 12px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #ffffff;
+    --surface: #f5f5f7;
+    --surface-2: #ececef;
+    --border: #e0e0e4;
+    --text: #1a1a1a;
+    --text-2: #6b7075;
+    --accent-soft: rgba(255, 59, 48, 0.10);
+  }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  width: 340px;
+  font-family: "Heebo", "Assistant", system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+}
+
+/* ===== Header ===== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, var(--surface), var(--surface-2));
+  border-bottom: 1px solid var(--border);
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.logo { width: 32px; height: 32px; border-radius: 8px; }
+.header-right { display: flex; align-items: center; gap: 8px; }
+.lang-toggle {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 5px 8px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  min-width: 34px;
+  transition: background 0.15s, border-color 0.15s;
+}
+.lang-toggle:hover { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.brand-text h1 { font-size: 16px; font-weight: 700; letter-spacing: 0.2px; }
+.subtitle { font-size: 11px; color: var(--text-2); }
+
+.counter {
+  text-align: center;
+  background: var(--accent-soft);
+  border-radius: 10px;
+  padding: 6px 10px;
+  min-width: 64px;
+}
+.counter span { display: block; font-size: 18px; font-weight: 800; color: var(--accent); line-height: 1.1; }
+.counter small { font-size: 9px; color: var(--text-2); }
+
+/* ===== Master switch ===== */
+.master { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.master-row { display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+.master-label strong { font-size: 15px; }
+.master-label .hint { display: block; font-size: 10px; color: var(--text-2); margin-top: 2px; }
+
+/* ===== Profiles ===== */
+.profiles { display: flex; gap: 8px; padding: 12px 16px; }
+.profile-btn {
+  flex: 1;
+  padding: 9px 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.profile-btn:hover { background: var(--surface-2); }
+.profile-btn.active { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+
+/* ===== Features ===== */
+.features { padding: 4px 16px 8px; max-height: 320px; overflow-y: auto; }
+.group-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin: 14px 0 6px;
+}
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 4px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+}
+.row:last-child { border-bottom: none; }
+.row-label { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.ico { font-size: 15px; width: 18px; text-align: center; }
+
+/* ===== Switch ===== */
+.switch { position: relative; display: inline-block; width: 40px; height: 22px; flex: none; }
+.switch.big { width: 50px; height: 28px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+  position: absolute; inset: 0;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  transition: background 0.2s;
+}
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 16px; width: 16px;
+  inset-inline-end: 3px; top: 50%;
+  transform: translateY(-50%);
+  background: #fff;
+  border-radius: 50%;
+  transition: inset-inline-end 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+.switch.big .slider::before { height: 22px; width: 22px; }
+input:checked + .slider { background: var(--on); border-color: var(--on); }
+input:checked + .slider::before { inset-inline-end: calc(100% - 19px); }
+.switch.big input:checked + .slider::before { inset-inline-end: calc(100% - 25px); }
+
+/* ===== Whitelist ===== */
+.whitelist { padding: 12px 16px; border-top: 1px solid var(--border); }
+.wl-btn {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 10px;
+  font: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.wl-btn:hover { background: var(--surface-2); }
+.wl-btn.active { border-color: var(--on); color: var(--on); }
+.wl-status { font-size: 11px; color: var(--text-2); margin-top: 6px; text-align: center; min-height: 14px; }
+
+/* ===== Contact ===== */
+.contact { padding: 10px 16px 4px; }
+.contact-link {
+  display: block;
+  text-align: center;
+  padding: 9px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 13px;
+  transition: background 0.15s, border-color 0.15s;
+}
+.contact-link:hover { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+
+/* ===== Copyright ===== */
+.copyright { text-align: center; font-size: 11px; color: var(--text-2); padding: 8px 16px 2px; }
+
+/* ===== Footer ===== */
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+  padding: 4px 16px 12px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+.footer-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+.link-btn { background: none; border: none; color: var(--text-2); font: inherit; font-size: 12px; cursor: pointer; text-decoration: underline; }
+.link-btn:hover { color: var(--accent); }
+.ver { font-size: 11px; color: var(--text-2); }
+
+.features::-webkit-scrollbar { width: 6px; }
+.features::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ===== Update button ===== */
+.update-btn { margin-top: 8px; background: none; cursor: pointer; font: inherit; width: 100%; }
+.update-btn.has-update { border-color: var(--on); color: var(--on); font-weight: 700; }
